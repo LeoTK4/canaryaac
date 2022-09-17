@@ -17,9 +17,19 @@ use App\Controller\Admin\Groups;
 use App\Controller\Admin\Publications;
 use App\Controller\Admin\Samples;
 use App\Controller\Admin\Settings;
+use App\Controller\Admin\Upload;
 use App\Controller\Admin\Worlds;
 
 $obRouter->get('/admin', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Home::getHome($request));
+    }
+]);
+$obRouter->get('/admin/home', [
     'middlewares' => [
         'required-admin-login',
         'role-permission'
@@ -45,6 +55,25 @@ $obRouter->post('/admin/settings', [
     ],
     function($request){
         return new Response(200, Settings::insertWorld($request));
+    }
+]);
+
+$obRouter->get('/admin/upload', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Upload::viewUpload($request));
+    }
+]);
+$obRouter->post('/admin/upload', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Upload::upload($request));
     }
 ]);
 
@@ -121,6 +150,15 @@ $obRouter->get('/admin/donates', [
         return new Response(200, Donates::viewDonates($request));
     }
 ]);
+$obRouter->post('/admin/donates', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Donates::updateDonates($request));
+    }
+]);
 $obRouter->get('/admin/donates/{reference}/view', [
     'middlewares' => [
         'required-admin-login',
@@ -130,6 +168,7 @@ $obRouter->get('/admin/donates/{reference}/view', [
         return new Response(200, Donates::viewPaymentByReference($request, $reference));
     }
 ]);
+
 
 $obRouter->get('/admin/samples', [
     'middlewares' => [
@@ -420,13 +459,22 @@ $obRouter->get('/admin/players', [
         return new Response(200, Players::getPlayers($request));
     }
 ]);
-$obRouter->get('/admin/players/{id}', [
+$obRouter->get('/admin/players/{id}/view', [
     'middlewares' => [
         'required-admin-login',
         'role-permission'
     ],
     function($request, $id){
         return new Response(200, Players::viewPlayer($request, $id));
+    }
+]);
+$obRouter->post('/admin/players/{id}/view', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Players::updatePlayer($request, $id));
     }
 ]);
 
@@ -439,12 +487,21 @@ $obRouter->get('/admin/accounts', [
         return new Response(200, Accounts::getAccounts($request));
     }
 ]);
-$obRouter->get('/admin/accounts/{id}', [
+$obRouter->get('/admin/accounts/{id}/view', [
     'middlewares' => [
         'required-admin-login',
         'role-permission'
     ],
     function($request, $id){
         return new Response(200, Accounts::viewAccount($request, $id));
+    }
+]);
+$obRouter->post('/admin/accounts/{id}/view', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Accounts::updateAccount($request, $id));
     }
 ]);

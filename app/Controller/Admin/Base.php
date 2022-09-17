@@ -21,7 +21,7 @@ class Base{
             'id' => 1,
             'parent_id' => null,
             'name' => 'Home',
-            'url' => URL . '/admin',
+            'url' => URL . '/admin/home',
             'icon' => 'home',
             'slug' => 'home',
         ],
@@ -32,6 +32,14 @@ class Base{
             'url' => URL . '/admin/donates',
             'icon' => 'shopping-cart',
             'slug' => 'donates',
+        ],
+        [
+            'id' => 27,
+            'parent_id' => null,
+            'name' => 'Upload',
+            'url' => URL . '/admin/upload',
+            'icon' => 'upload',
+            'slug' => 'upload',
         ],
         [
             'id' => 2,

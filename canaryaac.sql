@@ -448,6 +448,29 @@ CREATE TABLE `canary_payments` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `canary_products`
+--
+
+CREATE TABLE `canary_products` (
+  `id` int(11) NOT NULL,
+  `coins` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `canary_products`
+--
+
+INSERT INTO `canary_products` (`id`, `coins`) VALUES
+(1, 250),
+(2, 750),
+(3, 1500),
+(4, 3000),
+(5, 4500),
+(6, 15000);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `canary_samples`
 --
 
@@ -529,7 +552,23 @@ INSERT INTO `canary_towns` (`id`, `town_id`, `name`) VALUES
 (22, 21, 'Roshamuul'),
 (23, 22, 'Issavi'),
 (24, 23, 'Cobra Bastion'),
-(25, 24, 'Bounac');
+(25, 24, 'Bounac'),
+(26, 25, 'Feyrist'),
+(27, 26, 'Gnomprona'),
+(28, 27, 'Marapur');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `canary_uploads`
+--
+
+CREATE TABLE `canary_uploads` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `path` varchar(500) NOT NULL,
+  `date` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -544,15 +583,20 @@ CREATE TABLE `canary_website` (
   `downloads` varchar(250) NOT NULL,
   `player_voc` int(11) NOT NULL COMMENT '0 off and 1 on',
   `player_max` int(11) NOT NULL COMMENT 'players por conta',
-  `player_guild` int(11) NOT NULL COMMENT 'level'
+  `player_guild` int(11) NOT NULL COMMENT 'level',
+  `donates` int(11) NOT NULL COMMENT '0 off and 1 on',
+  `coin_price` decimal(10,2) NOT NULL,
+  `mercadopago` int(11) NOT NULL,
+  `pagseguro` int(11) NOT NULL,
+  `paypal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `canary_website`
 --
 
-INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`) VALUES
-(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100);
+INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`, `donates`, `coin_price`, `mercadopago`, `pagseguro`, `paypal`) VALUES
+(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100, 1, '0.10', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1414,6 +1458,12 @@ ALTER TABLE `canary_news`
 --
 ALTER TABLE `canary_payments`
   ADD PRIMARY KEY (`id`);
+  
+--
+-- Índices para tabela `canary_products`
+--
+ALTER TABLE `canary_products`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `canary_samples`
@@ -1425,6 +1475,12 @@ ALTER TABLE `canary_samples`
 -- Índices para tabela `canary_towns`
 --
 ALTER TABLE `canary_towns`
+  ADD PRIMARY KEY (`id`);
+  
+--
+-- Índices para tabela `canary_uploads`
+--
+ALTER TABLE `canary_uploads`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1740,6 +1796,12 @@ ALTER TABLE `canary_news`
 --
 ALTER TABLE `canary_payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  
+--
+-- AUTO_INCREMENT de tabela `canary_products`
+--
+ALTER TABLE `canary_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `canary_samples`
@@ -1752,6 +1814,12 @@ ALTER TABLE `canary_samples`
 --
 ALTER TABLE `canary_towns`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  
+--
+-- AUTO_INCREMENT de tabela `canary_uploads`
+--
+ALTER TABLE `canary_uploads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `canary_website`
